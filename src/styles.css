@@ -1,0 +1,189 @@
+/* ===============
+   Modal Styles
+================ */
+/* Remove default dialog styles */
+dialog {
+  position: fixed;
+
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+/* Style the modal box */
+#task-modal::backdrop {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+#task-modal {
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  padding: 24px;
+  background-color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  /*font-family: "Plus Jakarta Sans", sans-serif;*/
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #ea5555;
+  transition: transform 0.2s ease-in-out, font-weight 0.2s ease-in-out;
+  transition-delay: 0.1s; /* Delay before scaling */
+}
+
+.close-btn:hover {
+  transform: scale(1.15);
+  font-weight: 600;
+}
+
+.close-btn:focus {
+  outline: none;
+}
+
+/* Form elements */
+form label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.75em;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  color: #828fa3;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #828fa3;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.8125em;
+  resize: vertical;
+}
+
+form select {
+  appearance: none; /* Remove native arrow */
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="%23828FA3" stroke-width="3" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>')
+    no-repeat right 0.75rem center;
+
+  background-size: 1.4rem;
+  padding-right: 1rem;
+}
+
+/* ========================
+   Responsive Styles
+======================== */
+
+/******** Tablets ********/
+@media screen and (max-width: 1023px) {
+  .side-bar {
+    display: none; /* Hide sidebar on tablets and smaller */
+  }
+
+  .side-bar.show-sidebar {
+    display: flex !important;
+    position: fixed; /* Overlay on top of page */
+    height: auto;
+  }
+
+  #side-logo-div {
+    display: none;
+  }
+
+  .logo-mobile {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  body {
+    font-size: 0.8rem;
+  }
+
+  .board-btn {
+    font-size: 0.8rem;
+    padding-left: 15px;
+    margin-right: 15px;
+    font-weight: 700;
+  }
+
+  .container {
+    padding: 0;
+    width: 100%;
+    align-items: center; /* Center columns on smaller screens */
+  }
+
+  .card-column-main {
+    grid-template-columns: repeat(2, minmax(0, 360px));
+    gap: 8px;
+  }
+
+  header {
+    height: 64px;
+    padding: 0 10px 0 18px;
+    border: none;
+  }
+
+  #header-board-name {
+    font-size: 1rem;
+  }
+
+  .task-div {
+    width: 100%;
+  }
+
+  .columnHeader {
+    font-size: 0.75rem;
+  }
+
+  .dot {
+    height: 8px;
+    width: 8px;
+  }
+
+  .column-head-div {
+    gap: 8px;
+  }
+
+  .column-div {
+    width: 100%;
+  }
+}
+
+/******** Mobile ********/
+@media screen and (max-width: 576px) {
+  .card-column-main {
+    grid-template-columns: minmax(
+      0,
+      380px
+    ); /* Stack columns in single column */
+  }
+
+  .column-div {
+    padding: 24px;
+  }
+}
