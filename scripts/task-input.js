@@ -111,15 +111,27 @@ function saveTask() {
   task.description = document.getElementById("task-desc").value;
   task.status = document.getElementById("task-status").value;
 
-  saveTasksToLocalStorage(Tasks); // ✅ Persist changes
-  updateTaskUI(); // ✅ Ensure UI reflects new status
+  saveTasksToLocalStorage(Tasks);
+  updateTaskUI();
   closeEditTaskModal();
+
+  // ✅ Log message when task moves to "done"
+  if (task.status === "done") {
+    console.log("Well-done, task has been completed");
+  }
 }
 
 // Load tasks on startup
 document.addEventListener("DOMContentLoaded", () => {
   Tasks = loadTasksFromLocalStorage();
   updateTaskUI();
+
+  // ✅ Log all tasks on page load
+  console.log("All Current Tasks:", Tasks);
+
+  // ✅ Display "Done" tasks filter
+  const doneTasks = Tasks.filter((task) => task.status === "done");
+  console.log("Completed Tasks:", doneTasks);
 });
 
 // Attach event listeners after ensuring elements exist
