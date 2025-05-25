@@ -29,7 +29,7 @@ function updateTaskUI() {
     let taskElement = document.createElement("div");
     taskElement.className =
       "bg-white rounded-lg hover:bg-[#E4EBFA] hover:scale-101 transition-all duration-300 mb-5 py-4 px-4 font-bold shadow-md cursor-pointer";
-    taskElement.innerHTML = `<h2 class="text-lg">${task.title}</h2><p class="text-md text-gray-800">`;
+    taskElement.innerHTML = `<h2 class="text-lg">${task.title}</h2><p class="text-md text-gray-800">${task.description}</p>`;
 
     let column = document.getElementById(`${task.status}-column`);
     if (column) {
@@ -87,6 +87,7 @@ function openEditTaskModal(taskId) {
   document.getElementById("task-desc").value = task.description;
   document.getElementById("task-status").value = task.status;
 
+  modal.dataset.taskId = taskId; // ✅ Store task ID for reference when saving
   modal.showModal();
 }
 
@@ -101,9 +102,8 @@ function closeEditTaskModal() {
 // Function to save changes to an existing task
 function saveTask() {
   const modal = document.getElementById("task-modal");
-  if (!modal) return;
+  const taskId = parseInt(modal.dataset.taskId, 10); // ✅ Retrieve stored task ID
 
-  let taskId = currentTaskId;
   let task = Tasks.find((t) => t.id === taskId);
   if (!task) return;
 
@@ -111,8 +111,8 @@ function saveTask() {
   task.description = document.getElementById("task-desc").value;
   task.status = document.getElementById("task-status").value;
 
-  saveTasksToLocalStorage(Tasks);
-  updateTaskUI();
+  saveTasksToLocalStorage(Tasks); // ✅ Persist changes
+  updateTaskUI(); // ✅ Ensure UI reflects new status
   closeEditTaskModal();
 }
 
@@ -129,10 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const addTaskBtn = document.querySelectorAll(
     "[onclick='openAddTaskModal()']"
   );
-  const saveEditedTaskBtn = document.querySelector("[onclick='saveTask()']");
-  const closeEditModalBtn = document.querySelector(
-    "[onclick='closeEditTaskModal()']"
-  );
+  const saveEditedTaskBtn = document.getElementById("save-task-btn");
+  const closeEditModalBtn = document.getElementById("close-modal-btn");
 
   if (saveTaskBtn) saveTaskBtn.addEventListener("click", saveNewTask);
   if (closeAddModalBtn)
