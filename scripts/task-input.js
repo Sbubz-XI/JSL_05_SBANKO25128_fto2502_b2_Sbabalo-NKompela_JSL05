@@ -1,7 +1,12 @@
+import {
+  saveTasksToLocalStorage,
+  loadTasksFromLocalStorage,
+} from "./storage.js";
+
 const MAX_TASKS = 10;
 
-// Default tasks to display
-const Tasks = [
+// Load stored tasks, but keep initial tasks if storage is empty
+const initialTasks = [
   {
     id: 1,
     title: "Launch Epic Career 🚀",
@@ -40,10 +45,11 @@ const Tasks = [
   },
 ];
 
-// Track currently edited task
-let currentTaskId = null;
+let storedTasks = loadTasksFromLocalStorage();
+let Tasks = storedTasks.length ? storedTasks : initialTasks; // Keep initial tasks if storage is empty
+let currentTaskId = Tasks.length + 1;
 
-// Function to add new task details
+// Function to add a new task
 const addTaskDetails = () => {
   if (Tasks.length >= MAX_TASKS) {
     alert("Task limit reached!");
@@ -63,8 +69,9 @@ const addTaskDetails = () => {
       .toLowerCase();
   }
 
-  let task = { id: Tasks.length + 1, title, description, status };
+  let task = { id: currentTaskId++, title, description, status };
   Tasks.push(task);
+  saveTasksToLocalStorage(Tasks); // Save to local storage
   updateTaskUI();
   return task;
 };
@@ -103,11 +110,12 @@ function saveTask() {
   task.description = document.getElementById("task-desc").value;
   task.status = document.getElementById("task-status").value;
 
+  saveTasksToLocalStorage(Tasks); // Persist changes
   updateTaskUI();
   closeModal();
 }
 
-// Function to update UI after editing
+// Function to update UI
 function updateTaskUI() {
   ["todo-column", "doing-column", "done-column"].forEach((columnId) => {
     document.getElementById(columnId).innerHTML = "";
@@ -117,7 +125,7 @@ function updateTaskUI() {
     let taskElement = document.createElement("div");
     taskElement.className =
       "bg-white rounded-lg hover:bg-[#E4EBFA] hover:scale-101 transition-all duration-300 mb-5 py-4 px-4 font-bold shadow-md cursor-pointer";
-    taskElement.innerHTML = `<h2 class="text-lg">${task.title}</h2><p class="text-md text-gray-800">`;
+    taskElement.innerHTML = `<h2 class="text-lg">${task.title}</h2><p class="text-md text-gray-800">${task.description}</p>`;
 
     taskElement.addEventListener("click", () => openModal(task.id));
     document.getElementById(`${task.status}-column`).appendChild(taskElement);
@@ -125,4 +133,7 @@ function updateTaskUI() {
 }
 
 // Load tasks on startup
-document.addEventListener("DOMContentLoaded", updateTaskUI);
+document.addEventListener("DOMContentLoaded", () => {
+  Tasks = loadTasksFromLocalStorage() || initialTasks; // Ensure initial tasks are kept if storage is empty
+  updateTaskUI();
+});
