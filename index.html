@@ -39,15 +39,13 @@
 
           <h2 class="col-span-2 text-2xl font-bold mt-1 ml-3 md:ml-5">Launch Career</h2>
 
-          <span class="col-span-1 mt-4 ml-5 md:hidden w-3 h-3 bg-no-repeat bg-center bg-contain" style="background-image: url('assets/drop-down.svg');" alt="Drop down arrow"></span>
-
         </div>
 
         <div class="absolute right-0  md:justify-end md:items-center md:mr-5">
 
-          <button onclick="addTask()" class="cursor-pointer hidden md:flex bg-[#635FC7] text-white p-2 rounded-2xl w-full"> Add Task </button>
+          <button onclick="openAddTaskModal()" class="cursor-pointer hidden md:flex bg-[#635FC7] text-white p-2 rounded-2xl w-full"> Add Task </button>
 
-          <button onclick="addTask()" class="cursor-pointer flex md:hidden bg-[#635FC7] text-white text-3xl items-center justify-center w-9 h-9 pb-2 rounded-2xl mr-3"> + </button>
+          <button onclick="openAddTaskModal()" class="cursor-pointer flex md:hidden bg-[#635FC7] text-white text-3xl items-center justify-center w-9 h-9 pb-2 rounded-2xl mr-3"> + </button>
 
         </div>
 
@@ -132,11 +130,42 @@
               </form>
 
             </dialog>
-          
+            
+            <!-- Add Task Modal -->
+            <dialog id="add-task-modal">
+              <form method="dialog" id="add-task-form">
+                <div class="modal-header">
+                  <h3>Add New Task</h3>
+                  <button type="button" class="close-btn" id="close-add-task-btn">&times;</button>
+                </div>
+
+                <label for="new-task-title">Title</label>
+                <input type="text" id="new-task-title" name="title" required />
+
+                <label for="new-task-desc">Description</label>
+                <textarea id="new-task-desc" name="description" rows="4"></textarea>
+
+                <label for="new-task-status">Status</label>
+                <select id="new-task-status" name="status" required>
+                  <option value="todo">To Do</option>
+                  <option value="doing">Doing</option>
+                  <option value="done">Done</option>
+                </select>
+
+                <button type="button" id="save-new-task-btn" class="bg-[#635FC7] text-white px-4 py-2 rounded-lg">Save Task</button>
+                <button type="button" id="close-add-modal-btn" class="bg-[#F4F7FD] text-[#635FC7] px-4 py-2 rounded-lg">Close</button>
+              </form>
+            </dialog>
+
         </main>
+
       </div>
+
     </div>
+
     <script src="scripts/storage.js" type="module" defer></script>
+
     <script src="scripts/task-input.js" type="module" defer></script>
+
   </body>
 </html>
