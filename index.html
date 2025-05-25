@@ -107,10 +107,7 @@
 
               <form method="dialog" id="task-form">
                 <div class="modal-header">
-                  <h3>Task</h3>
-                  <button type="button" class="close-btn" id="close-modal-btn">
-                    &times;
-                  </button>
+                  <h3>Edit Task</h3>
                 </div>
         
                 <label for="task-title">Title</label>
@@ -125,8 +122,10 @@
                   <option value="doing">doing</option>
                   <option value="done">done</option>
                 </select>
-                <button onclick="saveTask()"  class="bg-[#635FC7] cursor-pointer text-white my-2 px-4 py-2 rounded-lg">Save</button>
-                <button onclick="closeModal()"  class="bg-[#F4F7FD] cursor-pointer text-[#635FC7]px-4 py-2 rounded-lg ">Close</button>
+                <div class="block">
+                  <button onclick="saveTask()"  class="bg-[#635FC7] cursor-pointer text-white my-2 px-4 py-2 rounded-lg">Save</button>
+                  <button onclick="closeModal()"  class="bg-[#F4F7FD] cursor-pointer text-[#635FC7]px-4 py-2 rounded-lg ">Close</button>
+                </div>
               </form>
 
             </dialog>
@@ -136,7 +135,6 @@
               <form method="dialog" id="add-task-form">
                 <div class="modal-header">
                   <h3>Add New Task</h3>
-                  <button type="button" class="close-btn" id="close-add-task-btn">&times;</button>
                 </div>
 
                 <label for="new-task-title">Title</label>
@@ -151,9 +149,10 @@
                   <option value="doing">Doing</option>
                   <option value="done">Done</option>
                 </select>
-
-                <button type="button" id="save-new-task-btn" class="bg-[#635FC7] text-white px-4 py-2 rounded-lg">Save Task</button>
-                <button type="button" id="close-add-modal-btn" class="bg-[#F4F7FD] text-[#635FC7] px-4 py-2 rounded-lg">Close</button>
+                <div class="items-center">
+                  <button type="button" id="save-new-task-btn" class="bg-[#635FC7] text-white px-4 py-2 rounded-lg">Save Task</button>
+                  <button type="button" id="close-add-modal-btn" class="bg-[#F4F7FD] text-[#635FC7] px-4 py-2 rounded-lg">Close</button>
+                </div>
               </form>
             </dialog>
 
